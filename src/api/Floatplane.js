@@ -8,8 +8,7 @@
  */
 const apiFetch = async (endpoint, request) => {
   const response = await fetch(endpoint ?? '', request)
-  console.log(response)
-  return response
+    return response
 }
 
 /**
