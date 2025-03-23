@@ -3,17 +3,18 @@ import Blits from '@lightningjs/blits'
 export default Blits.Component('Button', {
   template: `
     <Element w="$width" h="$height" :color="$backgroundColor" :effects="[{type: 'radius', props: {radius: $radius}}]">
-      <Text :content="$buttonText" color="#121212" lineheight="$height" size="$fontSize" :x="$x" :mount="{x: $mountX}" />
+      <Text :content="$buttonText" color="#fff" lineheight="$height" size="$fontSize" :x="$x" :mount="{x: $mountX}" />
     </Element>
   `,
   props: ['buttonText', 'textAlign'],
   state() {
     return {
-      backgroundColor: '#888',
+      backgroundColor: '#0085ff',
+      borderWidth: 2,
       fontSize: 21,
       height: 60,
       radius: 6,
-      width: 300,
+      width: 400,
     }
   },
   computed: {
@@ -24,16 +25,16 @@ export default Blits.Component('Button', {
       return this.textAlign === 'right'
         ? this.width - 20
         : this.textAlign === 'center'
-        ? this.width / 2
-        : 20
+          ? this.width / 2
+          : 20
     },
   },
   hooks: {
     focus() {
-      this.backgroundColor = '#fff'
+      this.backgroundColor = '#0061bb'
     },
     unfocus() {
-      this.backgroundColor = '#888'
+      this.backgroundColor = '#0085ff'
     },
   },
 })

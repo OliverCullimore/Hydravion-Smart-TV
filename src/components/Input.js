@@ -5,7 +5,7 @@ export default Blits.Component('Input', {
     <Element
       w="$width"
       h="$height"
-      color="#121212"
+      color="#26272b"
       :effects="[{type: 'radius', props: {radius: $radius}}, {type: 'border', props:{width: $borderWidth, color: $borderColor}}]"
     >
       <Text
@@ -23,14 +23,14 @@ export default Blits.Component('Input', {
   state() {
     return {
       alpha: 0,
-      borderColor: '#888',
+      borderColor: '#413e3e',
       borderWidth: 2,
       cursorBlink: null,
       fontSize: 21,
       height: 60,
       hide: null,
       radius: 6,
-      width: 300,
+      width: 400,
       x: 20,
     }
   },
@@ -46,15 +46,15 @@ export default Blits.Component('Input', {
   },
   hooks: {
     focus() {
-      this.borderColor = '#fff'
+      this.borderColor = '#0085ff'
       this.alpha = 1
       this.cursorBlink = this.$setInterval(() => {
         this.alpha = this.alpha === 1 ? 0 : 1 // Toggle alpha between 1 and 0
-      }, 300)
+      }, 400)
     },
     unfocus() {
       this.$clearInterval(this.cursorBlink)
-      this.borderColor = '#888'
+      this.borderColor = '#413e3e'
       this.alpha = 0
     },
   },
