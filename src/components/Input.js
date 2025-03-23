@@ -29,7 +29,7 @@ export default Blits.Component('Input', {
       fontSize: 21,
       height: 60,
       hide: null,
-      radius: 6,
+      radius: 8,
       width: 400,
       x: 20,
     }

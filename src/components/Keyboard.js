@@ -129,9 +129,9 @@ export default Blits.Component('Keyboard', {
         case 'Backspace':
         case 'Enter':
         case 'Shift':
-          return 150
+          return 130
         case ' ':
-          return 220
+          return 200
         default:
           return 60
       }

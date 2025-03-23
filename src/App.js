@@ -41,7 +41,7 @@ export default Blits.Application({
   hooks: {
     ready() {
       // Check for show FPS environment variable
-      if (process.env.SHOW_FPS !== undefined) {
+      if (import.meta.env.VITE_FPS !== undefined && import.meta.env.VITE_FPS === true) {
         this.showFPS = true
       }
 

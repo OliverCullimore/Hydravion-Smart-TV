@@ -1,5 +1,6 @@
 import Blits from '@lightningjs/blits'
 
+import Floatplane from '../api/Floatplane'
 import Loader from '../components/Loader'
 
 export default Blits.Component('SplashScreen', {
@@ -21,11 +22,17 @@ export default Blits.Component('SplashScreen', {
     }
   },
   hooks: {
-    ready() {
-      // Redirect to subscriptions list after 4 seconds
-      this.$setTimeout(() => {
-        this.$router.to('/subscriptions')
-      }, 4000)
+    async ready() {
+      // Use get subscriptions to check if user is logged in
+      let subscriptions = await Floatplane.getSubscriptions()
+      if (subscriptions.length) {
+        // Update to logged in
+        this.$appState.loggedIn = true
+        // Redirect to subscriptions list
+        this.$router.to('/subscriptions', { data: subscriptions })
+      } else {
+        this.$router.to('/login')
+      }
     },
   },
 })

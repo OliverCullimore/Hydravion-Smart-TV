@@ -13,7 +13,7 @@ export default Blits.Component('Button', {
       borderWidth: 2,
       fontSize: 21,
       height: 60,
-      radius: 6,
+      radius: 8,
       width: 400,
     }
   },

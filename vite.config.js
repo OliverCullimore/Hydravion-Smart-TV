@@ -2,6 +2,7 @@
 
 import { defineConfig } from 'vite'
 import blitsVitePlugins from '@lightningjs/blits/vite'
+import p from './package.json'
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
@@ -17,6 +18,18 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       },
       fs: {
         allow: ['..'],
+      },
+      // Proxy requests to Floatplane API to avoid CORS errors
+      proxy: {
+        '/api': {
+          target: 'https://www.floatplane.com',
+          changeOrigin: true,
+          headers: {
+            'User-Agent': `Hydravion Smart TV App v${p.version}, CFNetwork`,
+            Origin: 'https://www.floatplane.com',
+          },
+          cookieDomainRewrite: '',
+        },
       },
     },
     worker: {
