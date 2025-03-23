@@ -6,6 +6,10 @@ import App from './App'
 // Use the Blits App State plugin
 Blits.Plugin(appState, {
   loggedIn: false,
+  user: {
+    id: '',
+    username: '',
+  },
 })
 
 Blits.Launch(App, 'app', {

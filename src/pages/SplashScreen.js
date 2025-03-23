@@ -23,11 +23,13 @@ export default Blits.Component('SplashScreen', {
   },
   hooks: {
     async ready() {
-      // Use get subscriptions to check if user is logged in
-      let subscriptions = await Floatplane.getSubscriptions()
-      if (subscriptions.length) {
-        // Update logged in state
+      // Get logged in user info
+      let userInfo = await Floatplane.getUserInfo()
+      if (userInfo.length && userInfo['id'] !== undefined) {
+        // Update logged in user
         this.$appState.loggedIn = true
+        this.$appState.user.id = userInfo['id']
+        this.$appState.user.username = userInfo['username']
         // Redirect to subscriptions list
         this.$router.to('/subscriptions', { data: subscriptions })
       } else {

@@ -64,6 +64,15 @@ const logout = async () => {
 }
 
 /**
+ * Get logged in user info.
+ * @returns {Promise}
+ */
+const getUserInfo = async () => {
+  const response = await apiFetch('/api/v3/user/self')
+  return await response.json()
+}
+
+/**
  * Get all channel subscriptions.
  * @returns {Promise}
  */
@@ -76,5 +85,6 @@ export default {
   login,
   login2fa,
   logout,
+getUserInfo,
   getSubscriptions,
 }

@@ -166,6 +166,8 @@ export default Blits.Component('Login', {
         // Logged in
       } else if (loginResult['user']['id'] !== undefined) {
         this.$appState.loggedIn = true
+        this.$appState.user.id = loginResult['user']['id']
+        this.$appState.user.username = loginResult['user']['username']
         this.$router.to('/subscriptions')
 
         // Unknown error
