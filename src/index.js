@@ -1,10 +1,12 @@
 import Blits from '@lightningjs/blits'
-import App from './App.js'
+import keymapping from './keymapping'
+import App from './App'
 
 Blits.Launch(App, 'app', {
   w: 1920,
   h: 1080,
   debugLevel: 1,
+  keymap: { ...keymapping() },
   fonts: [
     {
       family: 'lato',
