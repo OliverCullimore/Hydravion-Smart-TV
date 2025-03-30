@@ -1,0 +1,13 @@
+{
+    "name": "com.hydravionsmarttv.proxy",
+    "version": "0.1.0",
+    "description": "Hydravion Proxy",
+    "main": "proxy.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@types/webos-service": "^0.4.6",
+        "node-fetch": "^3.3.2"
+    }
+}

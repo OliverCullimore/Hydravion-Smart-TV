@@ -2,12 +2,25 @@
 
 import { defineConfig } from 'vite'
 import blitsVitePlugins from '@lightningjs/blits/vite'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 import p from './package.json'
+
+const platform = (process.env.PLATFORM || 'webos') == 'webos' ? 'webos' : 'tizen'
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
     base: '/', // Set to your base path if you are deploying to a subdirectory (example: /myApp/)
-    plugins: [...blitsVitePlugins],
+    plugins: [
+      ...blitsVitePlugins,
+      viteStaticCopy({
+        targets: [
+          {
+            src: 'platform/' + platform + '/*',
+            dest: '../',
+          },
+        ],
+      }),
+    ],
     resolve: {
       mainFields: ['browser', 'module', 'jsnext:main', 'jsnext'],
     },
@@ -67,6 +80,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
           cookieDomainRewrite: '',
         },
       },
+    },
+    build: {
+      outDir: 'dist/' + platform + '/app',
     },
     worker: {
       format: 'es',

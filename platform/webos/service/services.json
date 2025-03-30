@@ -1,0 +1,9 @@
+{
+  "id": "com.hydravionsmarttv.proxy",
+  "description": "Hydravion Proxy",
+  "services": [
+    {
+      "name": "com.hydravionsmarttv.proxy"
+    }
+  ]
+}

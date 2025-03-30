@@ -1,0 +1,14 @@
+{
+  "id": "com.hydravionsmarttv",
+  "type": "web",
+  "title": "Hydravion",
+  "appDescription": "Hydravion for LG/Samsung TVs",
+  "vendor": "Hydravion",
+  "version": "0.1.0",
+  "main": "index.html",
+  "icon": "assets/icon.png",
+  "largeIcon": "assets/icon.png",
+  "iconColor": "#ffffff",
+  "bgColor": "#070b10",
+  "splashBackground": "assets/splashBackground.png"
+}

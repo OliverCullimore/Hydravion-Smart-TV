@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://github.com/OliverCullimore/Hydravion-Smart-TV" version="1.0.0" height="1080" width="1920" viewmodes="maximized">
+    <tizen:application id="F22qmsmpjA.Hydravion" package="F22qmsmpjA" required_version="2.3"/>
+    <author href="https://github.com/OliverCullimore/Hydravion-Smart-TV">Oliver Cullimore</author>
+    <content src="index.html"/>
+    <description>Hydravion for LG/Samsung TVs</description>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <feature name="http://tizen.org/feature/web.service"/>
+    <icon src="icon.png"/>
+    <license href="licenseurl">license</license>
+    <tizen:metadata key="http://tizen.org/metadata/app_ui_type/base_screen_resolution" value="extensive"/>
+    <name>Hydravion</name>
+    <tizen:profile name="tv-samsung"/>
+    <tizen:setting screen-orientation="landscape" context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
+</widget>
