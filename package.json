@@ -9,7 +9,7 @@
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint '**/*.js' --fix",
     "build-webos": "env VITE_PLATFORM=webos vite build && ares-package -o dist/webos dist/webos/app dist/webos/service",
-    "build-tizen": "env VITE_PLATFORM=tizen vite build && tizen build-web -out dist/tizen -- dist/tizen/app",
+    "build-tizen": "env VITE_PLATFORM=tizen vite build && tizen build-web -- dist/tizen/app",
     "dev": "vite dev --host",
     "postinstall": "husky"
   },
