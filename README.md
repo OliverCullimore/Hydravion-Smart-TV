@@ -1,6 +1,6 @@
 # Hydravion-Smart-TV
 
-> This project is a WIP
+# !! This project is a WIP !!
 
 Rewrite of Hydravion, an unofficial Floatplane client, for LG webOS & Samsung Tizen TVs.
 
