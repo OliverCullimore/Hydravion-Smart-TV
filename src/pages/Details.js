@@ -10,7 +10,7 @@ export default Blits.Component('Details', {
   template: `
     <Element>
       <Element :src="$cover" color="rgba(255, 255, 255, 0.12)" w="1920" h="1080" />
-      <Text :content="$title" size="80" align="center" maxwidth="1900" x="70" y="70" />
+      <Text :content="$title" size="80" align="center" maxwidth="1780" x="70" y="70" />
       <Button ref="playbutton" x="70" y="410" buttonText="Play" textAlign="center" />
     </Element>
   `,

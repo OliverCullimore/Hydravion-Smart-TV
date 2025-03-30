@@ -1,4 +1,5 @@
 /* Floatplane API Client */
+import p from '../../package.json'
 
 /**
  * Make an API call (vite proxy for dev, JS service for webOS).
@@ -7,7 +8,22 @@
  * @returns {Promise}
  */
 const apiFetch = async (endpoint, request) => {
-  const response = await fetch(endpoint ?? '', request)
+  // Set extra headers
+  request = Object.assign(
+    {
+      headers: {
+        'User-Agent': `Hydravion Smart TV App v${p.version}, CFNetwork`,
+        Origin: 'https://www.floatplane.com',
+      },
+    },
+    request || {}
+  )
+  // Set URL
+  let url = endpoint ?? ''
+  if (import.meta.env.VITE_PLATFORM !== undefined) {
+    url = 'https://www.floatplane.com' + url
+  }
+  const response = await fetch(url, request)
   return response
 }
 

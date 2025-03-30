@@ -5,11 +5,15 @@ import blitsVitePlugins from '@lightningjs/blits/vite'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import p from './package.json'
 
-const platform = (process.env.PLATFORM || 'webos') == 'webos' ? 'webos' : 'tizen'
+const platform = (process.env.VITE_PLATFORM || 'webos') == 'webos' ? 'webos' : 'tizen'
+
+// TODO: Fix any legacy issues:
+// https://github.com/lightning-js/blits-example-app/compare/master...feature/legacy-browser-support
+// https://github.com/Angel-Studios/angel-smart-tv-blits/commit/42809879a24bb4775bd17c48fdd9f960187651ef
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
-    base: '/', // Set to your base path if you are deploying to a subdirectory (example: /myApp/)
+    base: '', // Set base path to be relative
     plugins: [
       ...blitsVitePlugins,
       viteStaticCopy({
@@ -32,7 +36,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       fs: {
         allow: ['..'],
       },
-      // Proxy requests to Floatplane API to avoid CORS errors
+      // Proxy requests to Floatplane to avoid CORS errors
       proxy: {
         '/api': {
           target: 'https://www.floatplane.com',

@@ -52,13 +52,21 @@ This command uses Vite to fire up a local server, with Hot Reloading support. Vi
 
 #### Build the App for production
 
-Create an optimized and minified version of your App:
+Build a LG webOS IPK:
 
 ```sh
-npm run build
+npm run build-webos
 ```
 
-This will create a production version of the app in the `dist` folder.
+This will create a production IPK of the app in the `dist/webos` folder.
+
+Build a Samsung Tizen
+
+```sh
+npm run build-tizen
+```
+
+This will create a production version of the app in the `dist/tizen` folder.
 
 #### Floatplane API
 
