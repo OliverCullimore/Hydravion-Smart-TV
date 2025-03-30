@@ -1,5 +1,7 @@
 import Blits from '@lightningjs/blits'
-import PlayerManager from '../managers/PlayerManager.js'
+
+import Floatplane from '../api/Floatplane'
+import PlayerManager from '../managers/PlayerManager'
 
 export default Blits.Component('Player', {
   template: `
@@ -41,8 +43,10 @@ export default Blits.Component('Player', {
       </Element>
     </Element>
   `,
+  props: ['id'],
   state() {
     return {
+      streamURL: '',
       controlsVisibility: 0,
       progressLength: 1520,
       progress: 0,
@@ -60,12 +64,35 @@ export default Blits.Component('Player', {
       this.$emit('changeBackground')
     },
     async init() {
+      // Init player
       await PlayerManager.init()
+      // Get video info
+      const videoInfo = await Floatplane.getVideoInfo(this.id)
+      if (videoInfo['id'] !== undefined) {
+        this.video = videoInfo
+      }
+      // Get delivery info
+      const deliveryInfo = await Floatplane.getDeliveryInfo('vod', this.id)
+      if (deliveryInfo['cdn'] !== undefined && deliveryInfo['resource']['uri'] !== undefined) {
+        const qualityLevel =
+          deliveryInfo.resource.data.qualityLevels[
+            deliveryInfo.resource.data.qualityLevels.length - 1
+          ].name
+        const qualityLevelParam = deliveryInfo.resource.data.qualityLevelParams[qualityLevel]
+        this.streamURL = deliveryInfo['cdn'] + deliveryInfo['resource']['uri']
+        this.streamURL = this.streamURL.replace('{qualityLevelParams.2}', qualityLevelParam['2'])
+        this.streamURL = this.streamURL.replace('{qualityLevelParams.4}', qualityLevelParam['4'])
+      }
+      // Redirect to subscriptions list if streamURL not found
+      if (this.streamURL === '') {
+        this.$router.to('/subscriptions')
+      }
+      // Load video
+      await PlayerManager.load({
+        streamUrl: this.streamURL,
+      })
     },
     async ready() {
-      await PlayerManager.load({
-        streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-      })
       const secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
       const duration = PlayerManager.getVideoDuration()
       if (duration) {
@@ -83,6 +110,23 @@ export default Blits.Component('Player', {
       await PlayerManager.destroy()
     },
   },
+  methods: {
+    play() {
+      this.showControls(1)
+      this.hideTimeout = this.$setTimeout(() => this.showControls(0), 3000)
+      if (PlayerManager.state.playingState == true) {
+        PlayerManager.pause()
+        this.playing = false
+      } else {
+        PlayerManager.play()
+        this.playing = true
+      }
+    },
+    showControls(v) {
+      this.$clearTimeout(this.hideTimeout)
+      this.controlsVisibility = v
+    },
+  },
   input: {
     space() {
       this.play()
@@ -92,24 +136,6 @@ export default Blits.Component('Player', {
     },
     down() {
       this.showControls(0)
-    },
-  },
-  methods: {
-    play() {
-      this.showControls(1)
-      this.hideTimeout = this.$setTimeout(() => this.showControls(0), 3000)
-      if (PlayerManager.state.playingState == true) {
-        PlayerManager.pause()
-        this.playing = false
-      } else {
-        console.log('play!')
-        PlayerManager.play()
-        this.playing = true
-      }
-    },
-    showControls(v) {
-      this.$clearTimeout(this.hideTimeout)
-      this.controlsVisibility = v
     },
   },
 })

@@ -34,26 +34,26 @@ export default Blits.Component('Login', {
           x="125"
           color="#fff"
         />
-    
+
         <Element :show.transition="$errorMessage" w="400" h="60" y="80">
           <Text :content="$errorMessage" size="20" align="center" color="#f44242" x="50%" y="50%" mount="{x:0.5, y:0.5}" />
         </Element>
-    
+
         <Element y="170" :show="!$prompt2FA">
           <Text size="20">Username or Email</Text>
           <Input y="32" ref="username" :inputText="$username" placeholderText="Username" />
         </Element>
-    
+
         <Element y="290" :show="!$prompt2FA">
           <Text size="20">Password</Text>
           <Input y="32" ref="password" mask="true" :inputText="$password" placeholderText="Password" />
         </Element>
-    
+
         <Element y="290" :show="$prompt2FA">
           <Text size="20">2FA Code</Text>
           <Input y="32" ref="token" mask="true" :inputText="$token" placeholderText="Code" />
         </Element>
-    
+
         <Button ref="button" y="410" buttonText="Login" textAlign="center" />
       </Element>
     </Element>
@@ -134,7 +134,6 @@ export default Blits.Component('Login', {
       })
     },
     async processLogin() {
-      console.log('2fa: ' + this.prompt2FA + ' token: ' + this.token)
       if (this.prompt2FA && this.token === '') {
         this.setErrorMessage('2FA Code field is required')
       } else {
@@ -150,7 +149,6 @@ export default Blits.Component('Login', {
       let loginResult = this.prompt2FA
         ? await Floatplane.login2fa(this.token)
         : await Floatplane.login(this.username, this.password)
-      console.log(loginResult)
 
       // Show any error messages
       if (loginResult['message'] !== undefined) {

@@ -1,32 +1,25 @@
 import Blits from '@lightningjs/blits'
-import Item from '../components/Item'
+import Subscription from './Subscription'
 
-export default Blits.Component('List', {
+export default Blits.Component('SubscriptionsRow', {
   components: {
-    Item,
+    Subscription,
   },
   template: `
     <Element :x.transition="$x">
-      <Item
+      <Subscription
         :for="(item, index) in $items"
-        item="$item"
+        logo="$item.logo"
+        title="$item.title"
         :x="$index * $totalWidth"
-        :ref="'list-item-'+$item.id"
+        :ref="'list-item-' + $item.id"
         :key="$item.id"
         width="$itemWidth"
         height="$itemHeight"
       />
     </Element>
   `,
-  props: [
-    'autoScroll',
-    'autoscrollOffset',
-    'itemOffset',
-    'itemHeight',
-    'itemWidth',
-    'items',
-    'looping',
-  ],
+  props: ['itemOffset', 'itemHeight', 'itemWidth', 'items', 'looping'],
   state() {
     return {
       focused: 0,
@@ -45,10 +38,12 @@ export default Blits.Component('List', {
   },
   watch: {
     focused(value) {
-      const focusItem = this.$select(`list-item-${this.items[value].id}`)
-      if (focusItem && focusItem.$focus) {
-        focusItem.$focus()
-        this.scrollToFocus(value)
+      if (this.items[value] !== undefined) {
+        const focusItem = this.$select(`list-item-${this.items[value].id}`)
+        if (focusItem && focusItem.$focus) {
+          focusItem.$focus()
+          this.scrollToFocus(value)
+        }
       }
     },
   },
@@ -60,10 +55,7 @@ export default Blits.Component('List', {
       this.focused = nextFocus
     },
     scrollToFocus(index) {
-      if (this.autoScroll) {
-        const maxScrollIndex = Math.max(0, this.items.length - (this.autoscrollOffset || 0))
-        this.x = -(index <= maxScrollIndex ? index : maxScrollIndex) * this.totalWidth
-      }
+      this.x = -(index <= this.items.length ? index : this.items.length) * this.totalWidth
     },
   },
   input: {
@@ -74,7 +66,9 @@ export default Blits.Component('List', {
       this.changeFocus(1)
     },
     enter() {
-      console.log('Selected item:', this.items[this.focused])
+      this.$emit('onSubscriptionRowSelect-' + this.ref, {
+        item: this.items[this.focused],
+      })
     },
   },
 })

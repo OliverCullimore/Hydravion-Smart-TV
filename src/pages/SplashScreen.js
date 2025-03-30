@@ -25,13 +25,13 @@ export default Blits.Component('SplashScreen', {
     async ready() {
       // Get logged in user info
       let userInfo = await Floatplane.getUserInfo()
-      if (userInfo.length && userInfo['id'] !== undefined) {
+      if (userInfo['id'] !== undefined) {
         // Update logged in user
         this.$appState.loggedIn = true
         this.$appState.user.id = userInfo['id']
         this.$appState.user.username = userInfo['username']
         // Redirect to subscriptions list
-        this.$router.to('/subscriptions', { data: subscriptions })
+        this.$router.to('/subscriptions')
       } else {
         this.$router.to('/login')
       }

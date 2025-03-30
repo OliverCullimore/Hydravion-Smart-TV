@@ -30,6 +30,42 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
           },
           cookieDomainRewrite: '',
         },
+        '/profile_images': {
+          target: 'https://pbs.floatplane.com',
+          changeOrigin: true,
+          headers: {
+            'User-Agent': `Hydravion Smart TV App v${p.version}, CFNetwork`,
+            Origin: 'https://www.floatplane.com',
+          },
+          cookieDomainRewrite: '',
+        },
+        '/creator_icons': {
+          target: 'https://pbs.floatplane.com',
+          changeOrigin: true,
+          headers: {
+            'User-Agent': `Hydravion Smart TV App v${p.version}, CFNetwork`,
+            Origin: 'https://www.floatplane.com',
+          },
+          cookieDomainRewrite: '',
+        },
+        '/cover_images': {
+          target: 'https://pbs.floatplane.com',
+          changeOrigin: true,
+          headers: {
+            'User-Agent': `Hydravion Smart TV App v${p.version}, CFNetwork`,
+            Origin: 'https://www.floatplane.com',
+          },
+          cookieDomainRewrite: '',
+        },
+        '/blogPost_thumbnails': {
+          target: 'https://pbs.floatplane.com',
+          changeOrigin: true,
+          headers: {
+            'User-Agent': `Hydravion Smart TV App v${p.version}, CFNetwork`,
+            Origin: 'https://www.floatplane.com',
+          },
+          cookieDomainRewrite: '',
+        },
       },
     },
     worker: {

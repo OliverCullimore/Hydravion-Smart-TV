@@ -15,6 +15,12 @@ const state = {
 const init = async (element) => {
   shaka.polyfill.installAll() // polyfilling for devices that need it.
 
+  // Check to see if the browser supports the basic APIs Shaka needs.
+  if (!shaka.Player.isBrowserSupported()) {
+    // This browser does not have the minimum set of APIs we need.
+    console.error('Browser not supported!')
+  }
+
   videoElement = element
 
   if (!videoElement) {
@@ -29,6 +35,18 @@ const init = async (element) => {
     await player.attach(videoElement)
 
     videoElement.autoplay = false
+
+    // Manifest networking request filter (to send API URL through the CORS proxy)
+    player.getNetworkingEngine().registerResponseFilter((type, response) => {
+      if (type === shaka.net.NetworkingEngine.RequestType.MANIFEST) {
+        // Get current manifest data
+        let manifestText = shaka.util.StringUtils.fromUTF8(response.data)
+        // Modify EXT-X-KEY line
+        manifestText = manifestText.replace('https://www.floatplane.com', 'http://localhost:5173')
+        // Return modified manifest data
+        response.data = shaka.util.StringUtils.toUTF8(manifestText)
+      }
+    })
 
     // Listen for error events.
     player.addEventListener('error', (err) => {
