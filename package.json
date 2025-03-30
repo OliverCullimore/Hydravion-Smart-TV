@@ -8,7 +8,8 @@
     "start": "npm run dev",
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint '**/*.js' --fix",
-    "build": "vite build",
+    "build-webos": "env PLATFORM=webos vite build && ares-package -o dist/webos dist/webos/app dist/webos/service",
+    "build-tizen": "env PLATFORM=tizen vite build",
     "dev": "vite dev --host",
     "postinstall": "husky"
   },
