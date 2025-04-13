@@ -25,7 +25,7 @@ export default Blits.Component('SplashScreen', {
     async ready() {
       // Get logged in user info
       let userInfo = await Floatplane.getUserInfo()
-      if (userInfo['id'] !== undefined) {
+      if (userInfo['username'] !== undefined) {
         // Update logged in user
         this.$appState.loggedIn = true
         this.$appState.user.id = userInfo['id']
