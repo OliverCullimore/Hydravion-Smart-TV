@@ -205,6 +205,37 @@ const getVideosProgressPercentage = async (ids, type) => {
   return await response.json()
 }
 
+/**
+ * Get image path of closest to target image size.
+ * @param {object} [images] - Image/icon object
+ * @param {number} [targetWidth] - Closest to target width
+ * @returns {Array}
+ */
+const getTargetImageSize = (images, targetWidth) => {
+  // Check for a valid image object
+  if (typeof images !== 'object' && images !== null) {
+    return Array()
+  }
+
+  // Flatten images into a single object
+  if (images['childImages'] !== undefined) {
+    images = [images, ...images['childImages']]
+  }
+
+  // Find the image closest to the target width
+  const closestImage = images.reduce((closest, current) => {
+    targetWidth = targetWidth ?? 0
+    return Math.abs(current.width - targetWidth) < Math.abs(closest.width - targetWidth)
+      ? current
+      : closest
+  })
+
+  // Proxy image
+  closestImage['path'] = (closestImage['path'] ?? '').replace('https://pbs.floatplane.com', '')
+
+  return closestImage
+}
+
 export default {
   login,
   login2fa,
@@ -217,4 +248,5 @@ export default {
   getVideoInfo,
   getDeliveryInfo,
   getVideosProgressPercentage,
+  getTargetImageSize,
 }

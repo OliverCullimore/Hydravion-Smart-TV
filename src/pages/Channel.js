@@ -18,6 +18,7 @@ export default Blits.Component('Channel', {
         columns="$columns"
         margin="$margin"
         looping="false"
+        :logo="$logo"
         :coverImage="$coverImage"
         :title="$title"
       />
@@ -32,7 +33,8 @@ export default Blits.Component('Channel', {
       creator: Array(),
       channel: Array(),
       title: '',
-      coverImage: '',
+      logo: Object(),
+      coverImage: Object(),
       livestream: Array(),
       posts: Array(),
       items: Array(),
@@ -78,27 +80,18 @@ export default Blits.Component('Channel', {
       if (this.channel !== undefined && this.channel['title'] !== undefined) {
         // Set title
         this.title = this.channel['title']
+        // Set logo
+        this.logo = Floatplane.getTargetImageSize(this.channel['icon'], 100)
         // Set cover image
-        this.coverImage = this.channel['cover']['path']
-        if (
-          this.channel['cover']['childImages'].length > 0 &&
-          this.channel['cover']['childImages'][0]['path'] !== undefined
-        ) {
-          this.coverImage = this.channel['cover']['childImages'][0]['path']
-        }
+        this.coverImage = Floatplane.getTargetImageSize(this.channel['cover'], 1440)
       } else {
         // Set title
         this.title = this.creator['title']
+        // Set logo
+        this.logo = Floatplane.getTargetImageSize(this.creator['icon'], 100)
         // Set cover image
-        this.coverImage = this.creator['cover']['path']
-        if (
-          this.creator['cover']['childImages'].length > 0 &&
-          this.creator['cover']['childImages'][0]['path'] !== undefined
-        ) {
-          this.coverImage = this.creator['cover']['childImages'][0]['path']
-        }
+        this.coverImage = Floatplane.getTargetImageSize(this.creator['cover'], 1440)
       }
-      this.coverImage = this.coverImage.replace('https://pbs.floatplane.com', '')
       // Set livestream info
       this.livestream = this.creator['livestream']
       // Get creator posts
@@ -122,17 +115,7 @@ export default Blits.Component('Channel', {
           postType.push('Text')
         }
         // Thumbnail
-        let postThumbnail = ''
-        if (post['thumbnail'] !== undefined) {
-          if (
-            post['thumbnail']['childImages'].length > 0 &&
-            post['thumbnail']['childImages'][0]['path'] !== undefined
-          ) {
-            postThumbnail = post['thumbnail']['childImages'][0]['path']
-          } else {
-            postThumbnail = post['thumbnail']['path']
-          }
-        }
+        let postThumbnail = Floatplane.getTargetImageSize(post['thumbnail'], 300)
         // Duration
         let durationSeconds = 0
         if (post['metadata'] !== undefined) {
@@ -173,7 +156,7 @@ export default Blits.Component('Channel', {
           id: post.id,
           type: postType.join(' '),
           title: post.title,
-          thumbnail: postThumbnail.replace('https://pbs.floatplane.com', ''),
+          thumbnail: postThumbnail,
           text: post.text,
           duration: duration,
         })

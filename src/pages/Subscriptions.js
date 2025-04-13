@@ -33,8 +33,8 @@ export default Blits.Component('Subscriptions', {
       focused: 0,
       looping: true,
       y: 500,
-      itemWidth: 200,
-      itemHeight: 300,
+      itemWidth: 150,
+      itemHeight: 250,
       itemOffset: 100,
       subscriptions: Array(),
       creators: Array(),
@@ -70,10 +70,6 @@ export default Blits.Component('Subscriptions', {
       }
       // Add item for each creator
       this.creators.forEach((creator) => {
-        let creatorLogo = creator.icon.path
-        if (creator.icon.childImages.length > 0 && creator.icon.childImages[0].path !== undefined) {
-          creatorLogo = creator.icon.childImages[0].path
-        }
         let subscription = {
           id: creator.id,
           channels: Array({
@@ -81,25 +77,18 @@ export default Blits.Component('Subscriptions', {
             creatorId: creator.id,
             type: 'creator',
             title: '',
-            logo: creatorLogo.replace('https://pbs.floatplane.com', ''),
+            logo: Floatplane.getTargetImageSize(creator.icon, 300),
           }),
         }
         // Add child item for each creator channel
         if (creator.channels.length) {
           creator.channels.forEach((channel) => {
-            let channelLogo = channel.icon.path
-            if (
-              channel.icon.childImages.length > 0 &&
-              channel.icon.childImages[0].path !== undefined
-            ) {
-              channelLogo = channel.icon.childImages[0].path
-            }
             subscription.channels.push({
               id: channel.id,
               creatorId: creator.id,
               type: 'channel',
               title: channel.title,
-              logo: channelLogo.replace('https://pbs.floatplane.com', ''),
+              logo: Floatplane.getTargetImageSize(channel.icon, 300),
             })
           })
         }

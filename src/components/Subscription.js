@@ -4,14 +4,23 @@ export default Blits.Component('Subscription', {
   template: `
     <Element w="$width" h="$height" mount="0.5" :scale="$hasFocus ? 1.3 : 1">
       <Element
-        src="$logo"
+        src="$logo.path"
         w="$width"
         h="$width"
         :color="$bgColor"
         :effects="[{type: 'radius', props: {radius: $width}}]"
         @loaded="$imageLoaded"
       />
-      <Text content="$title" color="#fff" size="25" mount="{x: 0.5}" :x="$width/2" :y="$width + 35" />
+      <Text
+        content="$title"
+        color="#fff"
+        size="20"
+        align="center"
+        mount="{x: 0.5}"
+        :x="$width/2"
+        :y="$width + 35"
+        maxwidth="$width"
+      />
     </Element>
   `,
   props: ['width', 'height', 'logo', 'title'],

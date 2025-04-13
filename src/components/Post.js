@@ -9,7 +9,7 @@ export default Blits.Component('Post', {
     <Element w="$width" h="$height">
       <Element>
         <Element
-          src="$thumbnail"
+          src="$thumbnail.path"
           w="$width"
           h="$height/3*2.1"
           :color="$bgColor"
@@ -20,7 +20,7 @@ export default Blits.Component('Post', {
         <Text
           content="$title"
           :color="$hasFocus ? '#0085ff' : '#fff'"
-          size="24"
+          size="20"
           maxwidth="$width-30"
           maxlines="2"
           y="$height/3*2.1+10"
@@ -28,7 +28,7 @@ export default Blits.Component('Post', {
         <Text
           content="$type"
           :color="$hasFocus ? '#0085ff' : '#fff'"
-          size="20"
+          size="18"
           maxwidth="$width/2-15"
           maxlines="1"
           y="$height-20"
@@ -36,7 +36,7 @@ export default Blits.Component('Post', {
         <Text
           content="$duration"
           :color="$hasFocus ? '#0085ff' : '#fff'"
-          size="20"
+          size="18"
           maxlines="1"
           x="$width"
           y="$height-20"

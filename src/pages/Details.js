@@ -9,7 +9,7 @@ export default Blits.Component('Details', {
   },
   template: `
     <Element>
-      <Element :src="$cover" color="rgba(255, 255, 255, 0.12)" w="1920" h="1080" />
+      <Element :src="$cover.path" color="rgba(255, 255, 255, 0.12)" w="1920" h="1080" />
       <Text :content="$title" size="80" align="center" maxwidth="1780" x="70" y="70" />
       <Button ref="playbutton" x="70" y="410" buttonText="Play" textAlign="center" />
     </Element>
@@ -19,7 +19,7 @@ export default Blits.Component('Details', {
     return {
       post: Array(),
       title: '',
-      cover: '',
+      cover: Array(),
     }
   },
   hooks: {
@@ -46,14 +46,7 @@ export default Blits.Component('Details', {
       // Set title
       this.title = this.post['title']
       // Set cover image
-      this.cover = this.post['thumbnail']['path']
-      if (
-        this.post['thumbnail']['childImages'].length > 0 &&
-        this.post['thumbnail']['childImages'][0]['path'] !== undefined
-      ) {
-        this.cover = this.post['thumbnail']['childImages'][1]['path']
-      }
-      this.cover = this.cover.replace('https://pbs.floatplane.com', '')
+      this.cover = Floatplane.getTargetImageSize(this.post['thumbnail'], 1920)
     },
   },
   input: {

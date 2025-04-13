@@ -7,8 +7,18 @@ export default Blits.Component('PostGrid', {
   },
   template: `
     <Element :y.transition="$y">
-      <Element :src="$coverImage" w="1920" h="500" />
-      <Text :content="$title" size="50" maxwidth="1920" x="70" y="550" />
+      <Element :src="$coverImage.path" :w="$coverImageWidth" h="$coverImageHeight" :x="$coverImageX" />
+      <Element
+        src="$logo.path"
+        w="80"
+        h="80"
+        x="70"
+        y="$coverImageHeight + 30"
+        :color="$logoBgColor"
+        :effects="[{type: 'radius', props: {radius: 100}}]"
+        @loaded="$imageLoaded"
+      />
+      <Text :content="$title" size="30" maxwidth="1920" x="170" y="$coverImageHeight + 55" />
       <Post
         :for="(item, index) in $items"
         thumbnail="$item.thumbnail"
@@ -16,7 +26,7 @@ export default Blits.Component('PostGrid', {
         type="$item.type"
         duration="$item.duration"
         :x="$margin + ($index % ($columns)) * $totalWidth"
-        :y="640 + Math.floor($index / $columns) * $totalHeight"
+        :y="$coverImageHeight + 140 + Math.floor($index / $columns) * $totalHeight"
         :ref="'postgrid-item-' + $item.id"
         :key="$item.id"
         width="$itemWidth"
@@ -34,15 +44,24 @@ export default Blits.Component('PostGrid', {
     'margin',
     'looping',
     'title',
+    'logo',
     'coverImage',
   ],
   state() {
     return {
       focusIndex: 0,
       y: 0,
+      coverImageHeight: 325,
+      logoBgColor: "{top: '#ee7752', bottom: '#e73c7e', left: '#23a6d5', right: '#23d5ab'}",
     }
   },
   computed: {
+    coverImageWidth() {
+      return Math.min(1920, this.coverImage.width ?? 0)
+    },
+    coverImageX() {
+      return 1920 / 2 - (this.coverImageWidth / 2)
+    },
     totalWidth() {
       return (this.itemWidth || 300) + (this.itemOffset || 0)
     },
@@ -76,6 +95,9 @@ export default Blits.Component('PostGrid', {
       this.y =
         -Math.floor((index <= this.items.length ? index : this.items.length) / this.columns) *
         this.totalHeight
+    },
+    imageLoaded() {
+      this.logoBgColor = ''
     },
   },
   input: {
