@@ -14,21 +14,21 @@
     "postinstall": "husky"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.11.1",
-    "eslint": "^9.11.1",
+    "eslint": "^9.24.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "globals": "^15.9.0",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3",
-    "shaka-player": "^4.14.2",
-    "vite": "^5.4.8",
-    "vite-plugin-static-copy": "^2.3.0"
+    "eslint-plugin-prettier": "^5.2.6",
+    "globals": "^15.15.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
+    "shaka-player": "^4.14.7",
+    "vite": "^5.4.18",
+    "vite-plugin-static-copy": "^2.3.1"
   },
   "dependencies": {
-    "@lightningjs/blits": "^1.23.2"
+    "@lightningjs/blits": "^1.27.0"
   },
   "lint-staged": {
     "*.js": [
